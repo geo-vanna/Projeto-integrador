@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOC-IT</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h1>DOC-IT</h1>
+      <form id="register-form">
+        <label for="name">Nome completo</label>
+        <input type="text" id="name" placeholder="Digite seu nome" required>
+        
+        <label for="email">E-mail</label>
+        <input type="email" id="email" placeholder="Digite seu e-mail" required>
+        
+        <label for="password">Senha</label>
+        <input type="password" id="password" placeholder="Digite sua senha" required>
+        
+        <label for="confirm-password">Repita Senha</label>
+        <input type="password" id="confirm-password" placeholder="Repita sua senha" required>
+        
+        <button type="submit">Cadastrar</button>
+      </form>
+      <script>
+        document.getElementById("register-form").addEventListener("submit", async function (e) {
+          e.preventDefault(); // Interrompe o recarregamento da página
+      
+          // Pega os dados do formulário
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+      
+          const response = await fetch("http://localhost:3000/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, email, password }),
+          });
+      
+          const result = await response.json();
+          alert(result.message);
+        });
+      </script>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
